@@ -29,9 +29,9 @@ namespace Bank_Management_System.Managers
                 var query = _dbContext.Users
                     .Where(c => c.Role == "Customer")
                     .Include(c => c.Accounts)
-                    .ToListAsync();
+                    .AsQueryable();
 
-                var totalRecords = query.Result.Count();
+                var totalRecords = await query.CountAsync();
 
                 var customers = await query
                     .OrderBy(c => c.FullName) 
